@@ -1,4 +1,2 @@
-/main.obj
-/starlight 64.exe
-/starlight 64.ilk
-/starlight 64.pdb
+x64/
+.vs/
