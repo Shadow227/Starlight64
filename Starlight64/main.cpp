@@ -1,24 +1,21 @@
-
-#include "vulkanRenderer.h"
+#include "Engine.h"
 /*
      Starlight 64, Project started 6/11/2024.
      Code written by: George Skaggs
 */
 
-//Application Entry point
-//TODO: Seperate "game" and "engine"
+/*
+    Simple application entry point. Since StartEngine will let the game engine
+    take over the thread, we can just wait until that function finally ends to finish, which
+    is when we would need to call the shutdown command, so it all works out!
+*/
 int main()
 {
-    //TODO: Initalize Engine
-    //Initalize the graphicsEngine
-    Renderer graphicsEngine;
-    int result = graphicsEngine.initalizeRenderer();
-    //Check result and return error code if result was not a 1.
-    if (result != 1) 
+    Engine gameEngine;
+    int result = gameEngine.InitalizeEngine();
+    if (result != 1)
         return result;
-
-    //TODO: update Loop
-    graphicsEngine.graphicsUpdate();
-
+    gameEngine.StartEngine();
+    gameEngine.Shutdown();
     return 1;
 }

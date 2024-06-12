@@ -16,7 +16,9 @@ class Renderer
 private:
     GLFWwindow* window;
     VkApplicationInfo appInfo = {};
+    VkInstanceCreateInfo instanceInfo = {};
     VkInstance instance;
+    VkSurfaceKHR surface;
 
     //Functions
 public:

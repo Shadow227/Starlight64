@@ -6,6 +6,7 @@
 */
 int Renderer::initalizeRenderer()
 {
+#pragma region GLFW Init
     //Initalize GLFW otherwise we need to close
     if (!glfwInit())
     {
@@ -21,42 +22,50 @@ int Renderer::initalizeRenderer()
 
     glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
     window = glfwCreateWindow(1280, 720, "Starlight 64 Game Engine", NULL, NULL);
-    if(!window)
+    if (!window)
     {
         std::cout << "ERROR: WIndow creation failed" << std::endl;
         return -5;
     }
+#pragma endregion
 
-    //Intalize appInfo and instanceInfo
+#pragma region VulkanSetup
+    //So, WE need to do this in order to quarry the correct vkCreateInstance function.
+    //This variable is a function pointer fundamentally even if it doesnt
+    //seem like it. Very interesting!
+    //Learned form https://www.glfw.org/docs/3.3/vulkan_guide.html#vulkan_window
+    PFN_vkCreateInstance pfnCreateInstance = (PFN_vkCreateInstance)
+        glfwGetInstanceProcAddress(NULL, "vkCreateInstance");
+
+    //Get extensions needed by GLFW for vulkan.
+    uint32_t count;
+    const char** extensions = glfwGetRequiredInstanceExtensions(&count);
+
+    //Intalize appInfo
     appInfo.sType = VK_STRUCTURE_TYPE_APPLICATION_INFO;
     appInfo.pApplicationName = "Collectathon 64";
     appInfo.applicationVersion = VK_MAKE_VERSION(0, 0, 1);
     appInfo.pEngineName = "Starlight 64";
     appInfo.engineVersion = VK_MAKE_VERSION(0, 0, 1);
     appInfo.apiVersion = VK_API_VERSION_1_0;
-
-    uint32_t count;
-    const char** extensions = glfwGetRequiredInstanceExtensions(&count);
-    VkInstanceCreateInfo instanceInfo = {};
-
-    memset(&instanceInfo, 0, sizeof(instanceInfo));
+    //Initalize instanceInfo
     instanceInfo.enabledExtensionCount = count;
     instanceInfo.ppEnabledExtensionNames = extensions;
     instanceInfo.pApplicationInfo = &appInfo;
-    
-    if (vkCreateInstance(&instanceInfo,0,&instance) != VK_SUCCESS) 
+
+    if (pfnCreateInstance(&instanceInfo, 0, &instance) != VK_SUCCESS)
     {
-        std::cout << "ERROR CREATING VULKAN INSTANCE!" << std::endl;
+        std::cout << "Error: Could not create Vulkan Instance" << std::endl;
         return -2;
     }
 
-    VkSurfaceKHR surface;
-    VkResult err = glfwCreateWindowSurface(instance, window, NULL, &surface);
-    if (err)
+    
+    if (glfwCreateWindowSurface(instance, window, NULL, &surface) != VK_SUCCESS)
     {
         std::cout << "Error: Could not create window surface!" << std::endl;
         return -3;
     }
+#pragma endregion
 
     return 1;
 }
@@ -67,11 +76,3 @@ void Renderer::graphicsUpdate()
         // Keep running
     }
 }
-/*
-    This function create the win64/32 window. I might make this a dedicated different function later
-    after the update to GLFW.
-    TODO: Update this to work with GLFW!
-*/
-
-//Just a simple update loop.
-//TODO: Graphics updates need to happen here. Not just msg checking.
