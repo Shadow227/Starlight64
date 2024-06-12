@@ -1,4 +1,5 @@
 #include <math.h> 
+#pragma once
 /*
     This file is simple math functions that the Starlight 64 game engine will need!
     I need to research how to do operators better and might change some of these functions into
@@ -24,14 +25,14 @@ struct Transform3D
     Vector3D pos, rot, scale;
 };
 #pragma endregion
-
+#if 0
 #pragma region Functions
 //Vector Math
-float Magnitude2D(Vector2D vector)
+double Magnitude2D(Vector2D vector)
 {
     return sqrt((pow(vector.x, 2) + pow(vector.y, 2)));
 }
-float Magnitude3D(Vector3D vector)
+double Magnitude3D(Vector3D vector)
 {
     return sqrt((pow(vector.x, 2) + pow(vector.y, 2) + pow(vector.z, 2)));
 }
@@ -46,3 +47,5 @@ Vector3D addVector3D(Vector3D vec1, Vector3D vec2)
 
 
 #pragma endregion
+
+#endif

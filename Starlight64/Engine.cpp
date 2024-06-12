@@ -1,13 +1,13 @@
 #include "Engine.h"
 
-int Engine::InitalizeEngine()
+int Engine::InitalizeEngine(SLE64_BuildData* gameData)
 {
     CreateLogFile();
     UpdateLogFile("Initalizing Graphics Engine. . .");
 #pragma region GraphicsInit
     //Initalize the graphicsEngine
 
-    int result = m_graphicsEngine.initalizeRenderer();
+    int result = m_graphicsEngine.initalizeRenderer(gameData);
     //Check result and return error code if result was not a 1.
     if (result != 1)
         return result;
@@ -24,7 +24,8 @@ void Engine::StartEngine()
 
 bool Engine::Shutdown()
 {
-    return false;
+    m_graphicsEngine.Shutdown();
+    return true;
 }
 
 void Engine::CreateLogFile(const char* fileName)
@@ -32,7 +33,7 @@ void Engine::CreateLogFile(const char* fileName)
     //create file stream
     std::ofstream file;
     //open file
-    file.open(fileName, std::ios::app | std::ios::out);
+    file.open(fileName, std::ios::trunc | std::ios::out);
     //Check if file opened
     if (file.is_open()) 
     {

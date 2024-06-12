@@ -11,8 +11,19 @@
 */
 int main()
 {
+#pragma region initalizeVariables
+    //NOTE: Once this engine is closer to being finished
+    //This section will be refactered. For now this is what I'm doing
+    //for easier testing.
     Engine gameEngine;
-    int result = gameEngine.InitalizeEngine();
+    SLE64_WINData winData;
+    winData.windowHeight = 1280;
+    winData.windowWidth = 720;
+    SLE64_BuildData gameData;
+    gameData.gameName = "Collectathon 64 | SLE64";
+    gameData.windowData = &winData;
+#pragma endregion
+    int result = gameEngine.InitalizeEngine(&gameData);
     if (result != 1)
         return result;
     gameEngine.StartEngine();

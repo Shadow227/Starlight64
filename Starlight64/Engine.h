@@ -10,7 +10,7 @@ protected:
 public:
 	//Starts all core parts needed for STARLIGHT 64 to work, Returns 1 if the engine starts without any issue,
 	//otherwise it returns the error code reached.
-	int InitalizeEngine();
+	int InitalizeEngine(SLE64_BuildData* gameData);
 	//Public function to start the engine tick, Handles the starting functions for all subsystems.
 	//This function will only return after all code is ready for shutdown, as it will start the game loop
 	void StartEngine();

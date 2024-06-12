@@ -4,7 +4,7 @@
     Renderer::initalizeRenderer() - Returns int [error code. 1 = ran sucessfully]
 
 */
-int Renderer::initalizeRenderer()
+int Renderer::initalizeRenderer(SLE64_BuildData* gameData)
 {
 #pragma region GLFW Init
     //Initalize GLFW otherwise we need to close
@@ -21,8 +21,10 @@ int Renderer::initalizeRenderer()
     }
 
     glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
-    window = glfwCreateWindow(1280, 720, "Starlight 64 Game Engine", NULL, NULL);
-    if (!window)
+    glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
+    m_window = glfwCreateWindow(gameData->windowData->windowHeight, gameData->windowData->windowWidth, 
+        gameData->gameName, NULL, NULL);
+    if (!m_window)
     {
         std::cout << "ERROR: WIndow creation failed" << std::endl;
         return -5;
@@ -42,25 +44,25 @@ int Renderer::initalizeRenderer()
     const char** extensions = glfwGetRequiredInstanceExtensions(&count);
 
     //Intalize appInfo
-    appInfo.sType = VK_STRUCTURE_TYPE_APPLICATION_INFO;
-    appInfo.pApplicationName = "Collectathon 64";
-    appInfo.applicationVersion = VK_MAKE_VERSION(0, 0, 1);
-    appInfo.pEngineName = "Starlight 64";
-    appInfo.engineVersion = VK_MAKE_VERSION(0, 0, 1);
-    appInfo.apiVersion = VK_API_VERSION_1_0;
+    m_appInfo.sType = VK_STRUCTURE_TYPE_APPLICATION_INFO;
+    m_appInfo.pApplicationName = "Collectathon 64";
+    m_appInfo.applicationVersion = VK_MAKE_VERSION(0, 0, 1);
+    m_appInfo.pEngineName = "Starlight 64";
+    m_appInfo.engineVersion = VK_MAKE_VERSION(0, 0, 1);
+    m_appInfo.apiVersion = VK_API_VERSION_1_0;
     //Initalize instanceInfo
-    instanceInfo.enabledExtensionCount = count;
-    instanceInfo.ppEnabledExtensionNames = extensions;
-    instanceInfo.pApplicationInfo = &appInfo;
+    m_instanceInfo.enabledExtensionCount = count;
+    m_instanceInfo.ppEnabledExtensionNames = extensions;
+    m_instanceInfo.pApplicationInfo = &m_appInfo;
 
-    if (pfnCreateInstance(&instanceInfo, 0, &instance) != VK_SUCCESS)
+    if (pfnCreateInstance(&m_instanceInfo, 0, &m_instance) != VK_SUCCESS)
     {
         std::cout << "Error: Could not create Vulkan Instance" << std::endl;
         return -2;
     }
 
     
-    if (glfwCreateWindowSurface(instance, window, NULL, &surface) != VK_SUCCESS)
+    if (glfwCreateWindowSurface(m_instance, m_window, NULL, &m_surface) != VK_SUCCESS)
     {
         std::cout << "Error: Could not create window surface!" << std::endl;
         return -3;
@@ -71,8 +73,24 @@ int Renderer::initalizeRenderer()
 }
 void Renderer::graphicsUpdate()
 {
-    while (!glfwWindowShouldClose(window))
+    while (!glfwWindowShouldClose(m_window))
     {
-        // Keep running
+        glfwPollEvents();
     }
+}
+
+void Renderer::error_callback(int error, const char* description)
+{
+    fprintf(stderr, "Error: %s\n", description);
+}
+
+void Renderer::Shutdown()
+{
+    //Destroy window
+    glfwDestroyWindow(m_window);
+    //Destroy Surface
+    PFN_vkDestroySurfaceKHR pftDestroySurface = (PFN_vkDestroySurfaceKHR)
+        glfwGetInstanceProcAddress(NULL, "vkDestroySurfaceKHR");
+
+    pftDestroySurface(m_instance,m_surface,0);
 }
