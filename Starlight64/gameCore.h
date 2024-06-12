@@ -1,4 +1,4 @@
-//#include "mathHelper.h"
+#include "mathHelper.h"
 #include <vector>
 #pragma once
 /*
@@ -28,25 +28,25 @@ class GameObject
 	std::vector<GameObject*> m_children;
 	//Public member variables
 public:
-	//Vector3D m_transform;
+	Vector3D m_transform;
 
 	//Functions
 public:
 	//Constructor for our game object, for now this will just set the name but
 	//in the future I want to be able to expand this as needed.
-	//GameObject(const char* objectName,Vector3D transform, bool canTick = true, GameObject* parent = nullptr)
-	//{
-		//m_objectName = objectName;
-		//m_objectID = 1;
-		//m_isTickEnabled = canTick;
-		//m_transform = transform;
-		//m_parent = parent;
-	//};
+	GameObject(const char* objectName,Vector3D transform, bool canTick = true, GameObject* parent = nullptr)
+	{
+		m_objectName = objectName;
+		m_objectID = 1;
+		m_isTickEnabled = canTick;
+		m_transform = transform;
+		m_parent = parent;
+	};
 	//Destructor, handles cleanup.
-	//~GameObject()
-	//{
-	//	Destroy();
-	//};
+	~GameObject()
+	{
+		Destroy();
+	};
 	//Object update, Im taking inspiration from UE here. the "isTickEnabled" bool
 	//will control if this function runs or not.
 	virtual void onGameTick() = 0;
