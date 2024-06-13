@@ -3,7 +3,7 @@
 int Engine::InitalizeEngine(SLE64_BuildData* gameData)
 {
     CreateLogFile();
-    UpdateLogFile("Initalizing Graphics Engine. . .");
+    UpdateLogFile("Init Graphics Engine. . .");
 #pragma region GraphicsInit
     //Initalize the graphicsEngine
 
@@ -12,7 +12,7 @@ int Engine::InitalizeEngine(SLE64_BuildData* gameData)
     if (result != 1)
         return result;
 #pragma endregion
-    UpdateLogFile("Initalization of Engine FINISHED!");
+    UpdateLogFile("Init of Engine FINISHED!");
     return 1;
 }
 

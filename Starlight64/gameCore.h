@@ -6,13 +6,6 @@
 	doing is setting up backbone for later, all of these functions and classes will be used, eventually.
 */
 
-
-
-
-
-
-
-
 /*
 	GameObject is the base building block for all objects in the game. Once again using UE as
 	a base example, think of this as a UObject. This class is a parent class to be expanded.
@@ -79,8 +72,11 @@ class GameScene
 	//TODO: Figure out if uint32_t is too large for level IDs, I want to stay resonable here
 	uint32_t m_levelID; // The ID of the level. This is what all scenes will be refered to as.
 
-	//(void*) m_tick;
-	//(void*) m_onLoad;
+	using CustomTickEvent = void(*)(void);
+	using CustomOnLoad = void(*)(void);
+
+	CustomTickEvent m_tickEvent = nullptr;
+	CustomTickEvent m_onLoad = nullptr;
 
 public:
 	//Create a scene from game objects. I might change this input later when I figure out HOW im
@@ -98,7 +94,10 @@ public:
 	//every game tick and can be assigned using the "CreateScene()" function.
 	void SceneTick() 
 	{
-			//TODO: Figure out how to call functions I pass through a pointer.
+			if(m_tickEvent)
+			{
+				m_tickEvent();
+			}
 	}
 	//The function this calles is called only when the scene is first loaded into the game engine.
 	//This is essentually an event that fires after loading has finished and can be used
@@ -106,10 +105,20 @@ public:
 	//I want this to be overridden for the most part which will be seen as I develop this engine more.
 	void OnLoaded()
 	{
-			//TODO: Figure out how to call functions I pass through a pointer.
+		if (m_onLoad)
+		{
+			m_onLoad();
+		}
 	}
 };
-
+/*
+	PlayClass is the player of the game. This will hold all code for a basic player. This may
+	be replaced at a later point and is mainly for testing at the moment.
+*/
+class Player : public GameObject 
+{
+	Vector3D m_cameraMatrx[3];
+};
 /*
 	ENGINE DATA:
 	This section is for when I convert this over to a true "Engine". These structs are for the game data

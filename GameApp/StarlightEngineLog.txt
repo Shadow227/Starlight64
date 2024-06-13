@@ -1,0 +1,3 @@
+Start of Starlight Engine Log:
+Init Graphics Engine. . .
+Init of Engine FINISHED!

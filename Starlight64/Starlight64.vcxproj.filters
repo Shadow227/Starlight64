@@ -42,6 +42,9 @@
     <ClCompile Include="mathHelper.h">
       <Filter>Header Files\Helper</Filter>
     </ClCompile>
+    <ClCompile Include="GameManagerBase.cpp">
+      <Filter>Source Files\Core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine.h">
@@ -52,6 +55,9 @@
     </ClInclude>
     <ClInclude Include="vulkanRenderer.h">
       <Filter>Header Files\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="GameManagerBase.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
