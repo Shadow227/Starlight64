@@ -6,21 +6,41 @@ class Engine
 	//Member Vars
 protected:
 	Renderer m_graphicsEngine;
+	GameScene* m_currScene = nullptr;
+	SLE64_BuildData* m_gameData;
 	//Public Engine Functions
 public:
-	//Starts all core parts needed for STARLIGHT 64 to work, Returns 1 if the engine starts without any issue,
-	//otherwise it returns the error code reached.
+	/*
+	First function that calls. This initalizes the Starlight64 engine and all subsystems.
+	Returns 1 when the engine starts correctly, otherwise it will return a negitave error code.
+	*/
 	int InitalizeEngine(SLE64_BuildData* gameData);
-	//Public function to start the engine tick, Handles the starting functions for all subsystems.
-	//This function will only return after all code is ready for shutdown, as it will start the game loop
+	/*
+	The starting point for the program. This will start all subsystems and can ONLY be called after
+	the engine has been initalized. This will also start the gameLoop.
+	*/
 	void StartEngine();
-	//Cleans up memory and shuts down all systems to allow graceful shutdown.
+	/*
+	This is the final function that is called at the end of the games lifespan. It shutsdown all subsystems
+	and clears up hanging memory. Returns true if everything shuts down correctly.
+	*/
 	bool Shutdown();
-	//Create's a log file based on a file name. You can leave the fileName blank to use the
-	//default log file.
+	/*
+	 Creates a log file from file name. If no file name is passed it creates a default log file.
+	*/
 	void CreateLogFile(const char* fileName = "StarlightEngineLog.txt");
-	//Adds the value of "logMsg" to the Log File.
+	/*
+	Updats a log file by appending the logMsg to the end of the file. If no fileName is passed
+	this writes to the default log file.
+	WARNING: If you do not create the log file before hand, then this function will not restart your [filename].txt file!
+	which can lead to massive file sizes and fill your harddrive.
+	*/
 	void UpdateLogFile(const char* logMsg, const char* fileName = "StarlightEngineLog.txt");
+	/*
+	Loads a game scene from a sceneId. If the scene is already loaded it will reload the current scene, otherwise this will
+	unload the current scene and load in a new scene.
+	*/
+	bool LoadScene(size_t sceneId);
 
 };
 
