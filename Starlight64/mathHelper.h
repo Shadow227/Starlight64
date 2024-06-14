@@ -25,27 +25,28 @@ struct Transform3D
     Vector3D pos, rot, scale;
 };
 #pragma endregion
-#if 0
+
+
+namespace GameMath
+{
 #pragma region Functions
-//Vector Math
-double Magnitude2D(Vector2D vector)
-{
-    return sqrt((pow(vector.x, 2) + pow(vector.y, 2)));
-}
-double Magnitude3D(Vector3D vector)
-{
-    return sqrt((pow(vector.x, 2) + pow(vector.y, 2) + pow(vector.z, 2)));
-}
-Vector2D addVector2D(Vector2D vec1, Vector2D vec2)
-{
-    return Vector2D{ vec1.x + vec2.x, vec1.y + vec2.y };
-}
-Vector3D addVector3D(Vector3D vec1, Vector3D vec2)
-{
-    return Vector3D{ vec1.x + vec2.x, vec1.y + vec2.y, vec1.z + vec2.z };
-}
+    //Vector Math
+    double Magnitude2D(Vector2D vector)
+    {
+        return sqrt((pow(vector.x, 2) + pow(vector.y, 2)));
+    }
+    double Magnitude3D(Vector3D vector)
+    {
+        return sqrt((pow(vector.x, 2) + pow(vector.y, 2) + pow(vector.z, 2)));
+    }
+    Vector2D addVector2D(Vector2D vec1, Vector2D vec2)
+    {
+        return Vector2D{ vec1.x + vec2.x, vec1.y + vec2.y };
+    }
+    Vector3D addVector3D(Vector3D vec1, Vector3D vec2)
+    {
+        return Vector3D{ vec1.x + vec2.x, vec1.y + vec2.y, vec1.z + vec2.z };
+    }
 
-
+}
 #pragma endregion
-
-#endif
