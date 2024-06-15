@@ -30,33 +30,45 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="vulkanRenderer.cpp">
+    <ClCompile Include="src\Engine\vulkanRenderer.cpp">
       <Filter>Source Files\Renderer</Filter>
     </ClCompile>
-    <ClCompile Include="Engine.cpp">
+    <ClCompile Include="src\Engine\Engine.cpp">
       <Filter>Source Files\Core</Filter>
     </ClCompile>
-    <ClCompile Include="mathHelper.h">
+    <ClCompile Include="src\HelperAPIs\mathHelper.h">
       <Filter>Header Files\Helper</Filter>
     </ClCompile>
-    <ClCompile Include="GameManagerBase.cpp">
+    <ClCompile Include="src\GameObjects\GameManagerBase.cpp">
       <Filter>Source Files\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\Application.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Engine.h">
+    <ClInclude Include="src\Engine\Engine.h">
       <Filter>Header Files\Core</Filter>
     </ClInclude>
-    <ClInclude Include="gameCore.h">
+    <ClInclude Include="src\Engine\gameCore.h">
       <Filter>Header Files\Core</Filter>
     </ClInclude>
-    <ClInclude Include="vulkanRenderer.h">
+    <ClInclude Include="src\Engine\vulkanRenderer.h">
       <Filter>Header Files\Renderer</Filter>
     </ClInclude>
-    <ClInclude Include="GameManagerBase.h">
+    <ClInclude Include="src\GameObjects\GameManagerBase.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Application.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\EngineCore.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\starlight.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Entry.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
