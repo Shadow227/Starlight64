@@ -7,7 +7,7 @@ int main(int argc, char** argv)
 {
 	auto app = SLE::CreateApp();
 
-	app->startApp("Collectathon | Starlight", 1280, 720, 0);
+	app->startApp("Dimensional Heart | Starlight", 1280, 720, 0);
 	delete app;
 }
 #endif
